@@ -1,0 +1,24 @@
+1. Funcionalidades de Negócio (O que o sistema faz)
+
+    Gestão de Entidades: Realizar o CRUD completo (criar, listar, buscar, atualizar e deletar) para no mínimo 4 tabelas. No contexto de estoque, seriam: Produtos, Fornecedores, Usuários e uma Tabela Pivô (ex: Pedidos ou Movimentações).
+    Relacionamento N:N: Implementação obrigatória de uma relação "muitos-para-muitos", como um produto pertencendo a várias categorias ou um pedido contendo vários produtos.
+    Autenticação Segura: Sistema de login que gera tokens JWT, com senhas protegidas por bcrypt. Apenas a rota de login é pública; todas as outras exigem o token.
+
+2. Infraestrutura e Conectividade (Como o sistema roda)
+
+    Ambiente Isolado (Docker): Todo o ecossistema deve subir com um único comando: docker compose up --build.
+    Arquitetura de Rede Privada: O servidor Node.js e o banco PostgreSQL 17 ficam em uma rede interna isolada (Custom Bridge). O único ponto de entrada para o mundo externo é o Nginx, atuando como proxy reverso.
+    Imagens Otimizadas: Uso de Multi-stage builds para garantir que a imagem final do servidor seja leve e segura, separando o ambiente de compilação do de execução.
+    Persistência Real: Uso de Named Volumes para garantir que, se o container do banco cair, os dados do estoque não sejam perdidos.
+
+3. Banco de Dados e Performance (A "Inteligência")
+
+    Normalização: Dados estruturados obrigatoriamente até a 3ª Forma Normal (3FN).
+    Volume de Dados: O banco deve vir pré-populado com no mínimo 100 registros coerentes para testes de performance.
+    Consultas Otimizadas: Entrega de 5 consultas críticas (relatórios de estoque) que utilizem JOINs e índices (como B-Tree) para garantir velocidade.
+
+4. Documentação e Operação (Como o professor avalia)
+
+    Swagger: Uma interface interativa disponível em /api-docs para testar todas as rotas da API sem precisar de um frontend.
+    CLI de Migrations: Um comando via terminal (ex: node command.js migrate) para criar as tabelas automaticamente.
+    README Profissional: Um manual completo contendo a planta arquitetural, o guia de "How to Up" e as evidências de segurança
