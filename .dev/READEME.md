@@ -1,0 +1,2 @@
+Aos membros do grupo,
+todos os .gitkeep devem ser mantidos até que algum arquivo esteja na mesma pasta que ele; em resumo, o git não permite pastas vazias, ou seja, até preenchermos a pasta ela fica com o .gitkeep
