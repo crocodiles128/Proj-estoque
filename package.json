@@ -1,0 +1,32 @@
+{
+  "name": "proj-estoque",
+  "version": "1.0.0",
+  "description": "Projeto para a prova de IMPL de servidores; DW e DB",
+  "main": "src/server.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "db:sync": "node src/database/sync.js",
+    "test": "node -e \"require('./src/app')\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crocodiles128/Proj-estoque.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/crocodiles128/Proj-estoque/issues"
+  },
+  "homepage": "https://github.com/crocodiles128/Proj-estoque#readme",
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "pg": "^8.21.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.8"
+  }
+}
