@@ -7,7 +7,8 @@ ENV NODE_ENV=production
 FROM base AS deps
 
 COPY package*.json ./
-RUN npm ci --omit=dev
+# abaixo antigo --production
+RUN npm install --omit=dev
 
 FROM base AS runner
 

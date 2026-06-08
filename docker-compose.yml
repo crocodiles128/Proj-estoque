@@ -16,6 +16,9 @@ services:
       DB_USER: postgres
       DB_PASSWORD: postgres
       DB_NAME: proj_estoque
+      JWT_SECRET: #copiar do .env
+      JWT_EXPIRES_IN: 1d
+      BCRYPT_SALT_ROUNDS: 10
     depends_on:
       db:
         condition: service_healthy

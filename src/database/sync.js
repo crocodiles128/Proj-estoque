@@ -1,5 +1,5 @@
 const sequelize = require('./connection');
-const { Product } = require('../models');
+const { Product, User } = require('../models');
 
 async function syncDatabase() {
   await sequelize.authenticate();
@@ -7,6 +7,7 @@ async function syncDatabase() {
 
   console.log('Banco sincronizado com sucesso.');
   console.log(`Model carregada: ${Product.name}`);
+  console.log(`Model carregada: ${User.name}`);
 
   await sequelize.close();
 }
