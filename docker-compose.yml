@@ -21,13 +21,14 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    networks:
+      - frontend
+      - backend
     restart: unless-stopped
 
   db:
     image: postgres:16-alpine
     container_name: proj_estoque_db
-    ports:
-      - "5432:5432"
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -39,8 +40,17 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - backend
     restart: unless-stopped
 
 volumes:
   postgres_data:
   node_modules:
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge
+    internal: true
