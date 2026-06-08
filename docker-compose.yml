@@ -1,16 +1,14 @@
 services:
   app:
-    image: node:20-alpine
+    build:
+      context: .
+      target: runner
+    image: proj-estoque-app:latest
     container_name: proj_estoque_app
-    working_dir: /app
-    command: sh -c "npm install && npm run dev"
     ports:
       - "3000:3000"
-    volumes:
-      - ./:/app
-      - node_modules:/app/node_modules
     environment: # dados do db de exemplo, ao configurardevemos colocar os corretos, ou criar baseado nesses
-      NODE_ENV: development
+      NODE_ENV: production
       PORT: 3000
       DATABASE_URL: postgresql://postgres:postgres@db:5432/proj_estoque
       DB_HOST: db
@@ -46,7 +44,6 @@ services:
 
 volumes:
   postgres_data:
-  node_modules:
 
 networks:
   frontend:
