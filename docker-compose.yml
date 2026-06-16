@@ -1,12 +1,26 @@
 services:
+  nginx:
+    image: nginx:alpine
+    container_name: proj_estoque_nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - app
+    networks:
+      - frontend
+      - backend
+    restart: unless-stopped
+
   app:
     build:
       context: .
       target: runner
     image: proj-estoque-app:latest
     container_name: proj_estoque_app
-    ports:
-      - "3000:3000"
+    expose:
+      - "3000"
     environment: # dados do db de exemplo, ao configurardevemos colocar os corretos, ou criar baseado nesses
       NODE_ENV: production
       PORT: 3000
@@ -23,7 +37,6 @@ services:
       db:
         condition: service_healthy
     networks:
-      - frontend
       - backend
     restart: unless-stopped
 

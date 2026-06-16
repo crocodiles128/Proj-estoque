@@ -9,6 +9,8 @@
   "scripts": {
     "start": "node src/server.js",
     "db:sync": "node src/database/sync.js",
+    "db:migrate": "node commands.js migrate",
+    "db:status": "node commands.js status",
     "test": "node -e \"require('./src/app')\""
   },
   "repository": {
