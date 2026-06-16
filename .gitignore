@@ -6,3 +6,4 @@ web_modules/
 .env.*
 !.env.example
 .temp
+package-lock.json
