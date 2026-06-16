@@ -6,7 +6,7 @@ CREATE TABLE usuarios (
 );
 
 CREATE TABLE auth (
-    id_usuarios INT PRIMARY KEY,
+    id_usuarios INTEGER PRIMARY KEY,
     senha_hash VARCHAR(255) NOT NULL,
 
     FOREIGN KEY (id_usuarios)
@@ -16,7 +16,7 @@ CREATE TABLE auth (
 CREATE TABLE pedido (
     id_pedido SERIAL PRIMARY KEY,
     data_pedido DATE NOT NULL,
-    id_cliente INT NOT NULL,
+    id_cliente INTEGER NOT NULL,
     preco_total DECIMAL(10,2),
 
     FOREIGN KEY (id_cliente)
@@ -27,14 +27,14 @@ CREATE TABLE item (
     id_item SERIAL PRIMARY KEY,
     nome_item VARCHAR(100) NOT NULL,
     descricao_item TEXT,
-    quantidade_item INT,
+    quantidade_item INTEGER,
     preco_item DECIMAL(10,2)
 );
 
 CREATE TABLE item_pedido (
-    id_pedido INT,
-    id_item INT,
-    quantidade_produto INT NOT NULL,
+    id_pedido INTEGER NOT NULL,
+    id_item INTEGER NOT NULL,
+    quantidade_produto INTEGER NOT NULL,
     valor_unitario DECIMAL(10,2) NOT NULL,
 
     PRIMARY KEY (id_pedido, id_item),
