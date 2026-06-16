@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { User } = require('../models');
+const { Usuario } = require('../models');
 const authConfig = require('../config/auth');
 
 async function authMiddleware(request, response, next) {
@@ -17,14 +17,14 @@ async function authMiddleware(request, response, next) {
 
   try {
     const payload = jwt.verify(token, authConfig.jwtSecret);
-    const user = await User.findByPk(payload.sub);
+    const usuario = await Usuario.findByPk(payload.sub);
 
-    if (!user) {
+    if (!usuario) {
       return response.status(401).json({ message: 'Usuario nao encontrado.' });
     }
 
-    request.user = user;
-    request.userId = user.id;
+    request.user = usuario;
+    request.userId = usuario.id_usuarios;
 
     return next();
   } catch (error) {
