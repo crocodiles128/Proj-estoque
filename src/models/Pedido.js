@@ -13,7 +13,7 @@ class Pedido extends Model {
           type: DataTypes.DATEONLY,
           allowNull: false,
         },
-        id_cliente: {
+        id_usuarios: {
           type: DataTypes.INTEGER,
           allowNull: false,
         },
@@ -30,7 +30,7 @@ class Pedido extends Model {
   }
 
   static associate(models) {
-    this.belongsTo(models.Usuario, { foreignKey: 'id_cliente' });
+    this.belongsTo(models.Usuario, { foreignKey: 'id_usuarios' });
     this.belongsToMany(models.Item, {
       through: models.ItemPedido,
       foreignKey: 'id_pedido',

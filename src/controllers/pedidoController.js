@@ -27,15 +27,15 @@ async function getPedido(request, response) {
 }
 
 async function createPedido(request, response) {
-  const { data_pedido, id_cliente, itens } = request.body;
+  const { data_pedido, id_usuarios, itens } = request.body;
 
-  if (!data_pedido || !id_cliente) {
+  if (!data_pedido || !id_usuarios) {
     return response
       .status(400)
       .json({ message: 'Data do pedido e id do cliente sao obrigatorios.' });
   }
 
-  const cliente = await Usuario.findByPk(id_cliente);
+  const cliente = await Usuario.findByPk(id_usuarios);
   if (!cliente) {
     return response.status(400).json({ message: 'Cliente nao encontrado.' });
   }
@@ -56,7 +56,7 @@ async function createPedido(request, response) {
 
   const pedido = await Pedido.create({
     data_pedido,
-    id_cliente,
+    id_usuarios,
     preco_total: precoTotal,
   });
 
@@ -88,10 +88,10 @@ async function updatePedido(request, response) {
     return response.status(404).json({ message: 'Pedido nao encontrado.' });
   }
 
-  const { data_pedido, id_cliente, itens } = request.body;
+  const { data_pedido, id_usuarios, itens } = request.body;
 
-  if (id_cliente) {
-    const cliente = await Usuario.findByPk(id_cliente);
+  if (id_usuarios) {
+    const cliente = await Usuario.findByPk(id_usuarios);
     if (!cliente) {
       return response.status(400).json({ message: 'Cliente nao encontrado.' });
     }
@@ -99,7 +99,7 @@ async function updatePedido(request, response) {
 
   await pedido.update({
     data_pedido: data_pedido || pedido.data_pedido,
-    id_cliente: id_cliente || pedido.id_cliente,
+    id_usuarios: id_usuarios || pedido.id_usuarios,
   });
 
   if (itens && itens.length > 0) {
