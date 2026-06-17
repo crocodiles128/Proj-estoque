@@ -32,7 +32,7 @@ class Usuario extends Model {
 
   static associate(models) {
     this.hasOne(models.Auth, { foreignKey: 'id_usuarios' });
-    this.hasMany(models.Pedido, { foreignKey: 'id_cliente' });
+    this.hasMany(models.Pedido, { foreignKey: 'id_usuarios' });
   }
 }
 
