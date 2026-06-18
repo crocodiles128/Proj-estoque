@@ -1,13 +1,7 @@
 
--- seeds - População inicial 
--- Total estimado: 310 ~ 360 registros
+USE proj_estoque;   
 
-
-USE substituir   -- <<< trocar quando o projeto estiver pronto
-
--- 1. USUARIOS (100 registros)
-
-INSERT INTO usuarios(id_usuarios, nome_usuarios, email_usuarios, cargo_usuarios) VALUES
+INSERT INTO usuarios (id_usuarios, nome_usuarios, email_usuarios, cargo_usuarios) VALUES
 ('1', 'João Silva', 'joao.silva@email.com', 'Atendente'),
 ('2', 'Maria Oliveira', 'maria.oliveira@email.com', 'Vendedor'),
 ('3', 'Pedro Santos', 'pedro.santos@email.com', 'Gerente'),
@@ -111,11 +105,9 @@ INSERT INTO usuarios(id_usuarios, nome_usuarios, email_usuarios, cargo_usuarios)
 
 -- 2. AUTH (100 registros)
 -- Senha padrao para testes: password
-INSERT INTO auth(id_auth, id_usuarios, email_auth, senha_auth)
+INSERT INTO auth( id_usuarios, senha_hash)
 SELECT
     id_usuarios,
-    id_usuarios,
-    email_usuarios,
     '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.'
 FROM usuarios;
 
@@ -225,11 +217,12 @@ INSERT INTO item (id_item, nome_item, descricao_item, quantidade_item, preco_ite
 
 -- 4. PEDIDOS (30 registros aleatórios)
 --
-INSERT INTO pedido (data_pedido, id_usuarios, preco_total)
+INSERT INTO pedido (id_pedido, data_pedido, id_usuarios, preco_total)
 SELECT 
+    FLOOR(RAND()*1000)+1,
     DATE_SUB(CURDATE(), INTERVAL FLOOR(RAND()*60) DAY),
     FLOOR(RAND()*100)+1,
-    ROUND(RAND()*1200 + 80, 2)
+    ROUND(RAND()*1000 + 100, 2)
 FROM information_schema.tables 
 LIMIT 30;
 
