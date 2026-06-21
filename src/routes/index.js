@@ -8,6 +8,25 @@ const authMiddleware = require('../middlewares/authMiddleware');
 
 const routes = Router();
 
+/**
+ * @swagger
+ * /health:
+ *   get:
+ *     summary: Verifica se a API esta online.
+ *     tags:
+ *       - Health
+ *     responses:
+ *       200:
+ *         description: API em funcionamento.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: ok
+ */
 routes.get('/health', (request, response) => {
   response.json({ status: 'ok' });
 });

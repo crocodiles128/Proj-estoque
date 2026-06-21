@@ -19,7 +19,6 @@ Projeto inicial de API para controle de estoque usando Node.js, Express, Postgre
 - Mais tabelas e relacionamentos
 - Tabela pivo e relacao N:N
 - Middleware de autenticacao
-- Swagger
 - Docker, PostgreSQL e Nginx via `docker-compose.yml`
 - Migrations formais
 
@@ -49,11 +48,19 @@ Inicie o servidor:
 npm start
 ```
 
+Abra a documentacao Swagger:
+
+```text
+http://localhost:3000/api-docs
+```
+
 ## Rotas iniciais
 
 - `GET /health`
-- `GET /products`
-- `GET /products/:id`
-- `POST /products`
-- `PUT /products/:id`
-- `DELETE /products/:id`
+- `POST /auth/register`
+- `POST /auth/login`
+- `GET /auth/me`
+- `GET /usuarios`
+- `GET /itens`
+- `GET /pedidos`
+- `GET /itens-pedido`
