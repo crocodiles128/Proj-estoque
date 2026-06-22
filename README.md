@@ -1,26 +1,24 @@
 # Proj-estoque
 
-Projeto inicial de API para controle de estoque usando Node.js, Express, PostgreSQL e Sequelize.
+API REST para controle de estoque utilizando Node.js, Express, PostgreSQL, Sequelize com documentação Swagger.
 
-## O que ja existe
+## Funcionalidades
 
-- Setup do servidor Express em `src/server.js`
-- Configuracao do Sequelize em `src/config/database.js`
-- Conexao com PostgreSQL em `src/database/connection.js`
-- Model `Product` em `src/models/Product.js`
-- CRUD basico de produtos em `/products`
-- Script para sincronizar o banco com Sequelize
+- Autenticação JWT (register, login, profile)
+- CRUD completo de Usuários
+- CRUD completo de Itens (produtos)
+- CRUD completo de Pedidos
+- CRUD completo de Itens do Pedido (tabela pivô com relação N:N)
+- Middleware de autenticação protegendo todas as rotas (exceto login/register)
+- Documentação Swagger em `/api-docs`
 
-## O que ainda falta para o projeto completo da avaliacao
+## Documentação Swagger
 
-- Model de usuarios
-- Senha criptografada com bcrypt
-- Login com token JWT
-- Mais tabelas e relacionamentos
-- Tabela pivo e relacao N:N
-- Middleware de autenticacao
-- Docker, PostgreSQL e Nginx via `docker-compose.yml`
-- Migrations formais
+Todas as APIs estão documentadas via Swagger. Acesse:
+
+```text
+http://localhost:3000/api-docs
+```
 
 ## Como configurar
 
@@ -42,25 +40,49 @@ Sincronize as tabelas no banco:
 npm run db:sync
 ```
 
+Execute as migrations:
+
+```bash
+npm run db:migrate
+```
+
 Inicie o servidor:
 
 ```bash
 npm start
 ```
 
-Abra a documentacao Swagger:
+## Rotas da API
 
-```text
-http://localhost:3000/api-docs
-```
+### Autenticação (públicas)
+- `POST /auth/register` - Cadastro de usuário
+- `POST /auth/login` - Login e retorno de token JWT
+- `GET /auth/me` - Perfil do usuário autenticado
 
-## Rotas iniciais
+### Usuários (protegidas)
+- `GET /usuarios` - Listar usuários
+- `GET /usuarios/{id}` - Buscar usuário por ID
+- `POST /usuarios` - Criar usuário
+- `PUT /usuarios/{id}` - Atualizar usuário
+- `DELETE /usuarios/{id}` - Remover usuário
 
-- `GET /health`
-- `POST /auth/register`
-- `POST /auth/login`
-- `GET /auth/me`
-- `GET /usuarios`
-- `GET /itens`
-- `GET /pedidos`
-- `GET /itens-pedido`
+### Itens (protegidas)
+- `GET /itens` - Listar itens
+- `GET /itens/{id}` - Buscar item por ID
+- `POST /itens` - Criar item
+- `PUT /itens/{id}` - Atualizar item
+- `DELETE /itens/{id}` - Remover item
+
+### Pedidos (protegidas)
+- `GET /pedidos` - Listar pedidos
+- `GET /pedidos/{id}` - Buscar pedido por ID
+- `POST /pedidos` - Criar pedido
+- `PUT /pedidos/{id}` - Atualizar pedido
+- `DELETE /pedidos/{id}` - Remover pedido
+
+### Itens do Pedido (protegidas)
+- `GET /itens-pedido` - Listar itens vinculados aos pedidos
+- `GET /itens-pedido/{id_pedido}/{id_item}` - Buscar item do pedido
+- `POST /itens-pedido` - Vincular item a um pedido
+- `PUT /itens-pedido/{id_pedido}/{id_item}` - Atualizar item do pedido
+- `DELETE /itens-pedido/{id_pedido}/{id_item}` - Remover item do pedido
