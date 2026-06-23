@@ -11,7 +11,7 @@
     "db:sync": "node src/database/sync.js",
     "db:migrate": "node commands.js migrate",
     "db:status": "node commands.js status",
-    "test": "npm install && node -e \"require('./src/app')\""
+    "test": "node tests/api.test.js"
   },
   "repository": {
     "type": "git",
