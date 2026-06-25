@@ -1,6 +1,6 @@
 # Proj-estoque
 
-API REST para controle de estoque utilizando Node.js, Express, PostgreSQL, Sequelize com documentação Swagger.
+API REST para controle de estoque utilizando Node.js, Express, PostgreSQL e Sequelize com documentação Swagger.
 
 ## Funcionalidades
 
@@ -8,17 +8,27 @@ API REST para controle de estoque utilizando Node.js, Express, PostgreSQL, Seque
 - CRUD completo de Usuários
 - CRUD completo de Itens (produtos)
 - CRUD completo de Pedidos
-- CRUD completo de Itens do Pedido (tabela pivô com relação N:N)
+- CRUD completo de Itens do Pedido
+- Tabela pivô `ITEM_PEDIDO` para relacionar `ITENS` e `PEDIDOS` em uma relação N:N
 - Middleware de autenticação protegendo todas as rotas (exceto login/register)
 - Documentação Swagger em `/api-docs`
 
-## Documentação Swagger
+## Containers utilizados
 
-Todas as APIs estão documentadas via Swagger. Acesse:
+- `nginx` - servidor HTTP reverso que encaminha requisições para a aplicação
+- `app` - container da aplicação Node.js
+- `db` - container PostgreSQL para persistência de dados
+- `node_cli` - container Node.js opcional para uso de comandos CLI e migrações
 
-```text
-http://localhost:3000/api-docs
-```
+## Bibliotecas utilizadas
+
+- `express` - framework web para Node.js
+- `sequelize` - ORM para PostgreSQL
+- `pg` e `pg-hstore` - driver e utilitário PostgreSQL
+- `jsonwebtoken` - geração e validação de JWT
+- `bcrypt` - hashing de senhas
+- `dotenv` - gerenciamento de variáveis de ambiente
+- `swagger-jsdoc` e `swagger-ui-express` - documentação Swagger
 
 ## Como configurar
 
@@ -28,7 +38,7 @@ Crie um arquivo `.env` usando `.env.example` como base:
 cp .env.example .env
 ```
 
-Instale as dependencias:
+Instale as dependências:
 
 ```bash
 npm install
@@ -50,6 +60,51 @@ Inicie o servidor:
 
 ```bash
 npm start
+```
+
+## Usando Docker
+
+Para iniciar os containers com Docker Compose:
+
+```bash
+docker compose up --build
+```
+
+Isso criará os containers `nginx`, `app`, `db` e `node_cli` (perfil `cli`).
+
+## Como realizar login e usar o token JWT
+
+1. Faça uma requisição `POST /auth/login` com o corpo:
+
+```json
+{
+  "email": "seu@email.com",
+  "senha": "sua_senha"
+}
+```
+
+2. A resposta retorna um token JWT:
+
+```json
+{
+  "token": "seu.jwt.token.aqui"
+}
+```
+
+3. Use o token nas rotas protegidas no cabeçalho `Authorization`:
+
+```http
+Authorization: Bearer seu.jwt.token.aqui
+```
+
+4. A rota `GET /auth/me` retorna os dados do usuário autenticado usando o token.
+
+## Documentação Swagger
+
+Todas as APIs estão documentadas via Swagger. Acesse:
+
+```text
+http://localhost:3000/api-docs
 ```
 
 ## Rotas da API
@@ -86,3 +141,4 @@ npm start
 - `POST /itens-pedido` - Vincular item a um pedido
 - `PUT /itens-pedido/{id_pedido}/{id_item}` - Atualizar item do pedido
 - `DELETE /itens-pedido/{id_pedido}/{id_item}` - Remover item do pedido
+
