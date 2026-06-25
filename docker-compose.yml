@@ -21,7 +21,7 @@ services:
     container_name: proj_estoque_app
     expose:
       - "3000"
-    environment: # dados do db de exemplo, ao configurardevemos colocar os corretos, ou criar baseado nesses
+    environment:
       NODE_ENV: production
       PORT: 3000
       DATABASE_URL: postgresql://postgres:postgres@db:5432/proj_estoque
@@ -39,6 +39,28 @@ services:
     networks:
       - backend
     restart: unless-stopped
+
+  node_cli:
+    image: node:20-alpine
+    container_name: proj_estoque_node_cli
+    working_dir: /app
+    volumes:
+      - .:/app
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_NAME: proj_estoque
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRES_IN: 1d
+      BCRYPT_SALT_ROUNDS: 10
+    networks:
+      - backend
+    profiles:
+      - cli
+    entrypoint: ["node", "commands.js"]
 
   db:
     image: postgres:16-alpine
