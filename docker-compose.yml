@@ -63,7 +63,7 @@ services:
     entrypoint: ["node", "commands.js"]
 
   db:
-    image: postgres:16-alpine
+    image: postgres:17-alpine
     container_name: proj_estoque_db
     environment:
       POSTGRES_USER: postgres
