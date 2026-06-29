@@ -142,3 +142,8 @@ http://localhost:3000/api-docs
 - `PUT /itens-pedido/{id_pedido}/{id_item}` - Atualizar item do pedido
 - `DELETE /itens-pedido/{id_pedido}/{id_item}` - Remover item do pedido
 
+
+
+
+# [VÍDEO](https://drive.google.com/file/d/1Ga-G5cU-Hmh0q_xrHgcYuP9SATCWIxn9/view?usp=sharing)
+
